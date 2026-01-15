@@ -4,9 +4,11 @@ import Dashboard from './pages/Dashboard'
 import Controllers from './pages/Controllers'
 import Zones from './pages/Zones'
 import Login from './pages/Login'
+import useTheme from './hooks/useTheme'
 
 const App: React.FC = () => {
   const [status, setStatus] = useState<string | null>(null)
+  const { theme, toggle } = useTheme()
 
   const checkHealth = async () => {
     const h = await getHealth()
@@ -24,6 +26,13 @@ const App: React.FC = () => {
         <div style={{marginLeft:'auto'}} className="controls">
           <button className="btn" onClick={checkHealth}>Check /health</button>
           {status && <div className="small">Status: {status}</div>}
+          <button
+            className="theme-toggle"
+            onClick={() => toggle()}
+            aria-pressed={theme === 'light'}
+            title="Toggle light/dark">
+            {theme === 'dark' ? '🌙 Dark' : '☀️ Light'}
+          </button>
         </div>
       </header>
 
