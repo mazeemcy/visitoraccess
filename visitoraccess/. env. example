@@ -1,0 +1,5 @@
+﻿DATABASE_URL=postgresql://visitor_user:visitor_pass@localhost:5432/visitor_control
+SECRET_KEY=your-super-secret-key-change-this-minimum-32-characters
+POSTGRES_USER=visitor_user
+POSTGRES_PASSWORD=visitor_pass
+REACT_APP_API_URL=http://localhost:8000/api

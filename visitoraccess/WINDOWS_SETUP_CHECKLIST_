@@ -1,0 +1,127 @@
+# ✅ Windows Setup Checklist
+
+**Use this to verify everything is working before starting the application.**
+
+---
+
+## Pre-Installation Checklist
+
+- [ ] Windows 10 or 11 (64-bit recommended)
+- [ ] At least 4GB RAM available
+- [ ] At least 2GB disk space
+- [ ] Internet connection for downloading software
+- [ ] Administrator access to install software
+
+---
+
+## Installation Checklist
+
+### Python Installation
+- [ ] Downloaded Python 3.10+ from https://www.python.org/downloads/
+- [ ] Installed Python (remember to check "Add Python to PATH")
+- [ ] Opened PowerShell and verified:  `python --version`
+- [ ] Verified pip works: `pip --version`
+
+### Node.js Installation
+- [ ] Downloaded Node.js v16+ from https://nodejs.org/
+- [ ] Installed Node.js
+- [ ] Opened PowerShell and verified: `node --version`
+- [ ] Verified npm works: `npm --version`
+
+### PostgreSQL Installation
+- [ ] Downloaded PostgreSQL from https://www.postgresql.org/download/windows/
+- [ ] Installed PostgreSQL (remember the postgres password!)
+- [ ] Noted down:  postgres password:  `_____________`
+- [ ] Opened PowerShell and verified: `psql --version`
+- [ ] PostgreSQL service is running
+
+### Git Installation
+- [ ] Downloaded Git from https://git-scm.com/download/win
+- [ ] Installed Git
+- [ ] Opened PowerShell and verified: `git --version`
+
+---
+
+## Database Setup Checklist
+
+- [ ] Created database named:  `visitor_control`
+- [ ] Created user named: `visitor_user`
+- [ ] Set user password to: `visitor_pass`
+- [ ] Granted ALL PRIVILEGES to user
+- [ ] Tested connection: `psql -U visitor_user -d visitor_control` (works)
+
+---
+
+## Repository Setup Checklist
+
+- [ ] Cloned repository:  `git clone https://github.com/mazeemcy/visitor-access-control.git`
+- [ ] Location: `C:\Projects\visitor-access-control`
+- [ ] Verified folders exist:
+  - [ ] `backend/`
+  - [ ] `frontend/`
+  - [ ] `nginx. conf`
+  - [ ] `.env. example`
+
+---
+
+## Backend Setup Checklist
+
+- [ ] Navigated to `backend/` folder
+- [ ] Created virtual environment:  `python -m venv venv`
+- [ ] Activated venv: `venv\Scripts\activate` (see `(venv)` in prompt)
+- [ ] Upgraded pip: `python -m pip install --upgrade pip`
+- [ ] Installed dependencies: `pip install -r requirements.txt`
+- [ ] Copied `.env.example` to `.env`
+- [ ] Edited `.env` with correct values:
+  - [ ] `DATABASE_URL=postgresql://visitor_user:visitor_pass@localhost:5432/visitor_control`
+  - [ ] `SECRET_KEY=<generated secure key>`
+  - [ ] `DEBUG=False`
+- [ ] Tested backend start: `python -m uvicorn app.main:app --reload`
+  - [ ] Shows:  `Uvicorn running on http://0.0.0.0:8000`
+  - [ ] Can visit: http://localhost:8000/docs (API Docs load)
+
+---
+
+## Frontend Setup Checklist
+
+- [ ] Navigated to `frontend/` folder (in new PowerShell)
+- [ ] Installed dependencies: `npm install` (took ~2-3 minutes)
+- [ ] Created `.env` file
+- [ ] Added to `.env`: `REACT_APP_API_URL=http://localhost:8000/api`
+- [ ] Tested frontend start: `npm start`
+  - [ ] Shows: `Compiled successfully!`
+  - [ ] Browser opens: http://localhost:3000
+  - [ ] Page loads (doesn't show error)
+
+---
+
+## First Run Checklist
+
+- [ ] PostgreSQL is running
+- [ ] Backend is running (Terminal 1): http://localhost:8000/health returns `{"status":"healthy"}`
+- [ ] Frontend is running (Terminal 2): http://localhost:3000 loads
+- [ ] API Docs work: http://localhost:8000/docs loads
+- [ ] Opened http://localhost:3000 in browser
+- [ ] Clicked "Sign Up"
+- [ ] Created account: 
+  - [ ] Username: `admin`
+  - [ ] Email: `admin@example.com`
+  - [ ] Password: `securepassword123`
+- [ ] Clicked "Sign In"
+- [ ] Logged in successfully
+- [ ] Dashboard loads without errors
+- [ ] Can see "Dashboard", "Zones" in sidebar
+
+---
+
+## Firewall/Network Checklist
+
+- [ ] Port 5432 (PostgreSQL) is open
+- [ ] Port 8000 (Backend) is open
+- [ ] Port 3000 (Frontend) is open
+- [ ] Windows Firewall is not blocking connections
+- [ ] (Optional) Antivirus is not blocking connections
+
+---
+
+## File Structure Verification
