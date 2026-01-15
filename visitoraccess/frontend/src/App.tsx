@@ -14,26 +14,36 @@ const App: React.FC = () => {
   }
 
   return (
-    <div style={{ fontFamily: 'Arial, sans-serif', padding: 20 }}>
-      <h1>Visitor Access - Frontend (Minimal)</h1>
-      <div style={{ marginBottom: 12 }}>
-        <button onClick={checkHealth}>Check backend /health</button>
-        {status && <span style={{ marginLeft: 8 }}>Status: {status}</span>}
-      </div>
+    <div className="app">
+      <header className="header">
+        <div className="logo">VA</div>
+        <div>
+          <h1 className="title">Visitor Access</h1>
+          <div className="sub">Simple demo UI — responsive & themed</div>
+        </div>
+        <div style={{marginLeft:'auto'}} className="controls">
+          <button className="btn" onClick={checkHealth}>Check /health</button>
+          {status && <div className="small">Status: {status}</div>}
+        </div>
+      </header>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-        <div style={{ border: '1px solid #ddd', padding: 12 }}>
+      <div className="grid">
+        <div className="card">
           <h2>Pages</h2>
-          <Dashboard />
-          <Controllers />
-          <Zones />
+          <div className="page-list">
+            <div className="page-item"><Dashboard /></div>
+            <div className="page-item"><Controllers /></div>
+            <div className="page-item"><Zones /></div>
+          </div>
         </div>
 
-        <div style={{ border: '1px solid #ddd', padding: 12 }}>
+        <aside className="card">
           <h2>Login</h2>
           <Login />
-        </div>
+        </aside>
       </div>
+
+      <div className="footer">Built with ♥ — responsive layout and modern theme</div>
     </div>
   )
 }
