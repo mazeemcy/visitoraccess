@@ -4,10 +4,10 @@ REM Visitor Access Control System - Windows Start
 REM ============================================
 REM This script starts all required services
 
-title Visitor Access Control System - Starting... 
+title Visitor Access Control System - Starting...
 color 0A
 
-echo. 
+echo.
 echo ╔════════════════════════════════════════════════════════╗
 echo ║  Visitor Access Control System - Windows Startup       ║
 echo ║  @mazeemcy - 2026-01-15                               ║
@@ -17,7 +17,7 @@ echo.
 REM Check if project folder exists
 if not exist "backend\app\main.py" (
     color 0C
-    echo [ERROR] This script must be run from project root folder! 
+    echo [ERROR] This script must be run from project root folder!
     echo Expected structure:
     echo   - backend\app\main.py
     echo   - frontend\package.json
@@ -30,7 +30,7 @@ echo [1/5] Checking Python installation...
 python --version > nul 2>&1
 if %errorlevel% neq 0 (
     color 0C
-    echo [ERROR] Python is not installed or not in PATH! 
+    echo [ERROR] Python is not installed or not in PATH!
     echo Download from: https://www.python.org/downloads/
     pause
     exit /b 1
@@ -65,7 +65,7 @@ for /f "tokens=3" %%i in ('psql --version 2^>^&1') do set PG_VERSION=%%i
 echo [✓] PostgreSQL %PG_VERSION% found
 
 REM Check PostgreSQL service
-echo [4/5] Checking PostgreSQL service... 
+echo [4/5] Checking PostgreSQL service...
 sc query "PostgreSQL" > nul 2>&1
 if %errorlevel% neq 0 (
     echo [! ] PostgreSQL service not found.  Checking alternate names...
@@ -91,7 +91,7 @@ if not exist "backend\venv" (
     echo [✓] Virtual environment found
 )
 
-echo. 
+echo.
 echo ╔════════════════════════════════════════════════════════╗
 echo ║  All prerequisites verified!                           ║
 echo ║  Starting services...                                  ║
@@ -131,7 +131,7 @@ echo ║                                                        ║
 echo ║  Troubleshooting:                                      ║
 echo ║  - If port already in use:  Close other apps           ║
 echo ║  - If connection refused: Restart PostgreSQL           ║
-echo ║  - Check . env files in backend and frontend            ║
+echo ║  - Check .env files in backend and frontend            ║
 echo ║                                                        ║
 echo ║  GitHub: github.com/mazeemcy/visitor-access-control    ║
 echo ╚════════════════════════════════════════════════════════╝

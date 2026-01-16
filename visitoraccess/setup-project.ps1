@@ -55,7 +55,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 from app.routes import (
-    auth, controllers, gates, zones, visitors, 
+    auth, controllers, gates, zones, visitors,
     groups, events, users, roles, templates
 )
 from app.db.database import engine, Base
@@ -96,7 +96,7 @@ app.include_router(templates.router, prefix="/api/templates", tags=["templates"]
 async def health_check():
     return {"status": "healthy"}
 
-if __name__ == "__main__":   
+if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
 '@
@@ -147,7 +147,7 @@ def get_db():
     db = SessionLocal()
     try:
         yield db
-    finally:   
+    finally:
         db.close()
 '@
 
@@ -161,7 +161,7 @@ from app. db.database import Base
 from datetime import datetime
 
 # TODO: Add all model classes
-# - AccessController, Gate, Zone, Visitor, User, Role, etc. 
+# - AccessController, Gate, Zone, Visitor, User, Role, etc.
 '@
 
 $modelsPy | Set-Content -Path "$PROJECT_ROOT\backend\app\models\models.py" -Encoding UTF8
@@ -200,7 +200,7 @@ $hikvisionService = @'
 import requests
 from requests.auth import HTTPDigestAuth
 
-class HikvisionService: 
+class HikvisionService:
     """Service for Hikvision access controllers"""
 
     def __init__(self, ip: str, port: int, username: str, password: str):
@@ -283,16 +283,16 @@ cryptography==41.0.7
 python-dotenv==1.0.0
 requests==2.31.0
 qrcode==7.4.2
-pillow==10.1.0
+pillow==12.1.0
 aiofiles==23.2.1
 websockets==12.0
 '@
 
 $requirements | Set-Content -Path "$PROJECT_ROOT\backend\requirements.txt" -Encoding UTF8
 
-# .env. example
+# .env example
 $envExample = @'
-DATABASE_URL=postgresql://visitor_user:visitor_pass@localhost: 5432/visitor_control
+DATABASE_URL=postgresql://visitor_user:visitor_pass@localhost:5432/visitor_control
 SECRET_KEY=your-super-secret-key-change-this-minimum-32-characters
 ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=480
@@ -301,7 +301,7 @@ PORT=8000
 DEBUG=False
 '@
 
-$envExample | Set-Content -Path "$PROJECT_ROOT\backend\. env. example" -Encoding UTF8
+$envExample | Set-Content -Path "$PROJECT_ROOT\backend\.env.example" -Encoding UTF8
 
 Write-Host "[✓] Backend files created" -ForegroundColor Green
 Write-Host ""
@@ -686,7 +686,7 @@ root.render(
 
 $indexTsx | Set-Content -Path "$PROJECT_ROOT\frontend\src\index.tsx" -Encoding UTF8
 
-# Frontend . env
+# Frontend .env
 $frontendEnv = @'
 REACT_APP_API_URL=http://localhost:8000/api
 REACT_APP_VERSION=1.0.0
@@ -721,7 +721,7 @@ POSTGRES_PASSWORD=visitor_pass
 REACT_APP_API_URL=http://localhost:8000/api
 '@
 
-$rootEnv | Set-Content -Path "$PROJECT_ROOT\. env. example" -Encoding UTF8
+$rootEnv | Set-Content -Path "$PROJECT_ROOT\.env.example" -Encoding UTF8
 
 $dockerCompose = @'
 version: '3.8'
@@ -799,7 +799,7 @@ $readme | Set-Content -Path "$PROJECT_ROOT\README.md" -Encoding UTF8
 $backendDockerfile = @'
 FROM python:3.11-slim
 WORKDIR /app
-COPY requirements.txt . 
+COPY requirements.txt .
 RUN pip install -r requirements.txt
 COPY .  .
 EXPOSE 8000
@@ -818,10 +818,10 @@ Write-Host "║                                                        ║" -For
 Write-Host "║  Directory structure created:                          ║" -ForegroundColor Green
 Write-Host "║  - backend/app/   (models, routes, schemas, etc)      ║" -ForegroundColor Green
 Write-Host "║  - frontend/src/  (pages, components, api, etc)       ║" -ForegroundColor Green
-Write-Host "║  - Root files     (README, . env, docker-compose)      ║" -ForegroundColor Green
+Write-Host "║  - Root files     (README, .env, docker-compose)      ║" -ForegroundColor Green
 Write-Host "║                                                        ║" -ForegroundColor Green
 Write-Host "║  Next Steps:                                          ║" -ForegroundColor Green
-Write-Host "║  1. Edit backend\. env with database credentials       ║" -ForegroundColor Green
+Write-Host "║  1. Edit backend\\.env with database credentials       ║" -ForegroundColor Green
 Write-Host "║  2. Run: cd backend && python -m venv venv           ║" -ForegroundColor Green
 Write-Host "║  3. Run: venv\Scripts\activate                        ║" -ForegroundColor Green
 Write-Host "║  4. Run: pip install -r requirements.txt             ║" -ForegroundColor Green
