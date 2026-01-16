@@ -12,7 +12,7 @@ REM Set project root
 set PROJECT_ROOT=%CD%
 set TIMESTAMP=2026-01-15
 
-echo. 
+echo.
 echo ╔════════════════════════════════════════════════════════╗
 echo ║  Visitor Access Control - Project Setup                ║
 echo ║  Created: %TIMESTAMP%                              ║
@@ -23,7 +23,7 @@ echo.
 REM ============================================
 REM CREATE DIRECTORIES
 REM ============================================
-echo [1/3] Creating directory structure... 
+echo [1/3] Creating directory structure...
 
 md "%PROJECT_ROOT%\backend\app\models" 2>nul
 md "%PROJECT_ROOT%\backend\app\routes" 2>nul
@@ -56,16 +56,16 @@ REM Backend main entry point
 (
   echo # Visitor Access Control - FastAPI Backend
   echo # Entry point
-  echo. 
+  echo.
   echo from fastapi import FastAPI
   echo from fastapi.middleware. cors import CORSMiddleware
   echo from contextlib import asynccontextmanager
   echo from app.routes import (
-  echo     auth, controllers, gates, zones, visitors, 
+  echo     auth, controllers, gates, zones, visitors,
   echo     groups, events, users, roles, templates, reports
   echo ^)
   echo from app.db. database import engine, Base
-  echo. 
+  echo.
   echo # Create tables
   echo Base.metadata.create_all(bind=engine^)
   echo.
@@ -102,7 +102,7 @@ REM Backend main entry point
   echo async def health_check(^):
   echo     return {"status": "healthy"}
   echo.
-  echo if __name__ == "__main__":  
+  echo if __name__ == "__main__":
   echo     import uvicorn
   echo     uvicorn.run(app, host="0.0.0.0", port=8000^)
 ) > "%PROJECT_ROOT%\backend\app\main.py"
@@ -111,17 +111,17 @@ REM Backend config
 (
   echo from pydantic_settings import BaseSettings
   echo from functools import lru_cache
-  echo. 
+  echo.
   echo class Settings(BaseSettings^):
   echo     database_url: str
   echo     secret_key: str
   echo     algorithm: str = "HS256"
   echo     access_token_expire_minutes: int = 480
   echo     debug: bool = False
-  echo. 
-  echo     class Config: 
+  echo.
+  echo     class Config:
   echo         env_file = ".env"
-  echo. 
+  echo.
   echo @lru_cache(^)
   echo def get_settings(^):
   echo     return Settings(^)
@@ -149,7 +149,7 @@ REM Database setup
   echo     db = SessionLocal(^)
   echo     try:
   echo         yield db
-  echo     finally:  
+  echo     finally:
   echo         db.close(^)
 ) > "%PROJECT_ROOT%\backend\app\db\database.py"
 
@@ -228,7 +228,7 @@ REM Routes stubs
 REM Schemas
 (
   echo from pydantic import BaseModel
-  echo. 
+  echo.
   echo REM TODO: Add all Pydantic schemas
 ) > "%PROJECT_ROOT%\backend\app\schemas\schemas.py"
 
@@ -236,10 +236,10 @@ REM Services
 (
   echo import requests
   echo from requests. auth import HTTPDigestAuth
-  echo. 
+  echo.
   echo class HikvisionService:
   echo     """Service for Hikvision access controllers"""
-  echo. 
+  echo.
   echo     def __init__(self, ip: str, port: int, username: str, password: str^):
   echo         self.ip = ip
   echo         self. port = port
@@ -253,7 +253,7 @@ REM Services
 REM Utils
 (
   echo from passlib.context import CryptContext
-  echo. 
+  echo.
   echo pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto"^)
   echo.
   echo def hash_password(password:  str^) -> str:
@@ -266,7 +266,7 @@ REM Utils
 (
   echo from cryptography.fernet import Fernet
   echo import os
-  echo. 
+  echo.
   echo KEY = os.getenv("ENCRYPTION_KEY", Fernet.generate_key(^)^)
   echo cipher = Fernet(KEY^)
   echo.
@@ -279,7 +279,7 @@ REM Utils
 
 (
   echo from typing import List, Dict
-  echo. 
+  echo.
   echo class ConnectionManager:
   echo     def __init__(self^):
   echo         self.active_connections: Dict[str, List] = {}
@@ -310,28 +310,28 @@ REM Requirements
   echo python-dotenv==1.0.0
   echo requests==2.31.0
   echo qrcode==7.4.2
-  echo pillow==10.1.0
+  echo pillow==12.1.0
   echo aiofiles==23.2.1
   echo websockets==12.0
 ) > "%PROJECT_ROOT%\backend\requirements.txt"
 
-REM . env. example
+REM .env example
 (
-  echo DATABASE_URL=postgresql://visitor_user:visitor_pass@localhost: 5432/visitor_control
+  echo DATABASE_URL=postgresql://visitor_user:visitor_pass@localhost:5432/visitor_control
   echo SECRET_KEY=your-super-secret-key-change-this-minimum-32-characters
   echo ALGORITHM=HS256
   echo ACCESS_TOKEN_EXPIRE_MINUTES=480
   echo HOST=0.0.0.0
   echo PORT=8000
   echo DEBUG=False
-) > "%PROJECT_ROOT%\backend\. env.example"
+) > "%PROJECT_ROOT%\backend\.env.example"
 
 echo   [✓] Backend files created
 
 REM ============================================
 REM CREATE FRONTEND FILES
 REM ============================================
-echo [3/3] Creating frontend files... 
+echo [3/3] Creating frontend files...
 
 REM Package. json
 (
@@ -370,7 +370,7 @@ REM Types
   echo   is_active: boolean;
   echo   created_at: string;
   echo }
-  echo. 
+  echo.
   echo export interface Zone {
   echo   id: number;
   echo   name: string;
@@ -391,7 +391,7 @@ REM Types
 REM Auth Store
 (
   echo import { create } from 'zustand';
-  echo. 
+  echo.
   echo export const useAuthStore = create((set) => ({
   echo   user: null,
   echo   token: localStorage.getItem('token'),
@@ -412,7 +412,7 @@ REM API Client
   echo import axios from 'axios';
   echo import { useAuthStore } from '../store/authStore';
   echo.
-  echo const API_BASE_URL = process. env.REACT_APP_API_URL || 'http://localhost:8000/api';
+  echo const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000/api';
   echo.
   echo const client = axios.create({
   echo   baseURL: API_BASE_URL,
@@ -479,7 +479,7 @@ REM API endpoints stubs
 
 (
   echo import client from './client';
-  echo. 
+  echo.
   echo export const templatesApi = {
   echo   list:  () => client.get('/templates/'),
   echo   create: (data: any) => client.post('/templates/', data),
@@ -507,11 +507,11 @@ REM Pages
 (
   echo import React, { useState } from 'react';
   echo import { Container, Paper, TextField, Button, Typography, Box } from '@mui/material';
-  echo. 
+  echo.
   echo export default function Login() {
   echo   const [username, setUsername] = useState('');
   echo   const [password, setPassword] = useState('');
-  echo. 
+  echo.
   echo   return (
   echo     ^<Container^>
   echo       ^<Paper^>
@@ -620,7 +620,7 @@ REM Components
 
 (
   echo import React from 'react';
-  echo. 
+  echo.
   echo export default function ZoneDetailTab(props: any) {
   echo   return ^<div^>Zone Detail Tab^</div^>;
   echo }
@@ -635,7 +635,7 @@ REM App. tsx
   echo import Dashboard from './pages/Dashboard';
   echo import Controllers from './pages/Controllers';
   echo import Zones from './pages/Zones';
-  echo. 
+  echo.
   echo export default function App() {
   echo   return (
   echo     ^<Router^>
@@ -668,7 +668,7 @@ REM index.tsx
   echo import ReactDOM from 'react-dom/client';
   echo import App from './App';
   echo import { Toaster } from 'react-hot-toast';
-  echo. 
+  echo.
   echo const root = ReactDOM.createRoot(
   echo   document.getElementById('root') as HTMLElement
   echo );
@@ -681,7 +681,7 @@ REM index.tsx
   echo );
 ) > "%PROJECT_ROOT%\frontend\src\index.tsx"
 
-REM Frontend . env
+REM Frontend .env
 (
   echo REACT_APP_API_URL=http://localhost:8000/api
   echo REACT_APP_VERSION=1.0.0
@@ -704,32 +704,32 @@ REM ============================================
 REM CREATE ROOT FILES
 REM ============================================
 
-REM . env.example
+REM .env.example
 (
   echo DATABASE_URL=postgresql://visitor_user:visitor_pass@localhost:5432/visitor_control
   echo SECRET_KEY=your-super-secret-key-change-this-minimum-32-characters
   echo POSTGRES_USER=visitor_user
   echo POSTGRES_PASSWORD=visitor_pass
   echo REACT_APP_API_URL=http://localhost:8000/api
-) > "%PROJECT_ROOT%\. env.example"
+) > "%PROJECT_ROOT%\.env.example"
 
 REM docker-compose.yml (stub)
 (
   echo version: '3.8'
-  echo. 
+  echo.
   echo services:
   echo   db:
   echo     image: postgres:15-alpine
-  echo     environment: 
+  echo     environment:
   echo       POSTGRES_USER: ${POSTGRES_USER:-visitor_user}
   echo       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-visitor_pass}
   echo       POSTGRES_DB:  visitor_control
-  echo     ports: 
+  echo     ports:
   echo       - "5432:5432"
-  echo. 
+  echo.
   echo   backend:
   echo     build: ./backend
-  echo     ports: 
+  echo     ports:
   echo       - "8000:8000"
   echo     depends_on:
   echo       - db
@@ -745,18 +745,18 @@ REM docker-compose.yml (stub)
 REM README.md
 (
   echo # Visitor Access Control System
-  echo. 
+  echo.
   echo A complete, production-ready visitor management system integrated with Hikvision access controllers.
-  echo. 
+  echo.
   echo ## Features
-  echo. 
+  echo.
   echo - ✅ Hikvision Integration
   echo - ✅ Visitor Management with QR Codes
   echo - ✅ Real-time Access Control
   echo - ✅ Zone Management
   echo - ✅ Live Events Monitoring
   echo - ✅ Advanced Reporting
-  echo. 
+  echo.
   echo ## Quick Start
   echo.
   echo ### Windows (No Docker)
@@ -767,7 +767,7 @@ REM README.md
   echo 4. Start Backend: `python -m uvicorn app.main:app --reload`
   echo 5. Start Frontend: `npm start`
   echo.
-  echo See WINDOWS_INSTALL_GUIDE.md for details. 
+  echo See WINDOWS_INSTALL_GUIDE.md for details.
   echo.
   echo ## Documentation
   echo.
@@ -818,7 +818,7 @@ REM nginx.conf stub
   echo # TODO: Add Nginx configuration
 ) > "%PROJECT_ROOT%\nginx.conf"
 
-echo. 
+echo.
 echo ╔════════════════════════════════════════════════════════╗
 echo ║  ✅ Project Setup Complete!                            ║
 echo ║                                                        ║
@@ -828,7 +828,7 @@ echo ║  - frontend/src/  (pages, components, api, etc)       ║
 echo ║  - Root files     (README, .env, docker-compose)      ║
 echo ║                                                        ║
 echo ║  Next Steps:                                          ║
-echo ║  1. Edit backend\. env with your database URL         ║
+echo ║  1. Edit backend\.env with your database URL         ║
 echo ║  2. Edit files in backend/app and frontend/src       ║
 echo ║  3. Run: cd backend && python -m venv venv           ║
 echo ║  4. Run: venv\Scripts\activate                        ║
@@ -838,6 +838,6 @@ echo ║  7. Start the system!                                 ║
 echo ║                                                        ║
 echo ║  Location: %PROJECT_ROOT%                   ║
 echo ╚════════════════════════════════════════════════════════╝
-echo. 
+echo.
 
 pause

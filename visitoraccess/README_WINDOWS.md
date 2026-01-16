@@ -30,4 +30,4 @@
    ```powershell
    git clone https://github.com/mazeemcy/visitor-access-control.git
    cd visitor-access-control
-   copy . env.example .env
+   copy .env.example .env

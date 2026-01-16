@@ -26,10 +26,10 @@ if ! command -v docker-compose &> /dev/null; then
     exit 1
 fi
 
-# Check if . env file exists
+# Check if .env file exists
 if [ ! -f .env ]; then
     echo -e "${YELLOW}⚠️  .env file not found. Creating from example...${NC}"
-    cp . env.example .env
+    cp .env.example .env
     echo -e "${GREEN}✅ .env file created.  Please update with your settings.${NC}"
 fi
 
