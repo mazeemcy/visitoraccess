@@ -1,0 +1,54 @@
+# 🪟 Windows Installation Guide (No Docker)
+
+**Visitor Access Control System - Complete Setup for Windows**
+
+**Last Updated:** 2026-01-15  
+**Platform:** Windows 10/11
+
+---
+
+## Table of Contents
+
+1. [Prerequisites & Downloads](#prerequisites--downloads)
+2. [PostgreSQL Setup](#postgresql-setup)
+3. [Backend Setup](#backend-setup)
+4. [Frontend Setup](#frontend-setup)
+5. [Running the Application](#running-the-application)
+6. [Accessing the Application](#accessing-the-application)
+7. [Windows-Specific Troubleshooting](#windows-specific-troubleshooting)
+8. [Daily Usage](#daily-usage)
+
+---
+
+## Prerequisites & Downloads
+
+### Required Software
+
+| Software | Version | Download |
+|----------|---------|----------|
+| **Python** | 3.10+ | https://www.python.org/downloads/ |
+| **Node.js** | 16+ | https://nodejs.org/ |
+| **PostgreSQL** | 13+ | https://www.postgresql.org/download/windows/ |
+| **Git** | Latest | https://git-scm.com/download/win |
+
+### Verify Installation
+
+Open **Command Prompt** or **PowerShell** and check:
+
+```bash
+# Check Python
+python --version
+# Should output: Python 3.10+ 
+
+# Check Node.js
+node --version
+npm --version
+# Should output: v16+
+
+# Check Git
+git --version
+# Should output: git version 2.x+
+
+# Check PostgreSQL
+psql --version
+# Should output: psql (PostgreSQL) 13+
